@@ -1,0 +1,47 @@
+{
+  "name": "@jeffy-g/unzip",
+  "version": "1.2.1",
+  "description": "Streaming ZIP extraction helper and CLI powered by fflate.",
+  "bin": {
+    "ffunzip": "./unzip.js"
+  },
+  "main": "index.js",
+  "types": "ffunzip.d.ts",
+  "type": "commonjs",
+  "license": "MIT",
+  "engines": {
+    "node": ">=16"
+  },
+  "keywords": [
+    "unzip",
+    "zip",
+    "extract",
+    "fflate",
+    "cli",
+    "streaming",
+    "node",
+    "commonjs",
+    "typescript"
+  ],
+  "files": [
+    "LICENSE",
+    "package.json",
+    "README.md",
+    "*.d.ts",
+    "*.js"
+  ],
+  "author": "jeffy-g <hirotom1107@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/jeffy-g/unzip/issues"
+  },
+  "homepage": "https://github.com/jeffy-g/unzip#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeffy-g/unzip.git"
+  },
+  "dependencies": {
+    "colors.ts": "^1.0.20",
+    "fflate": "^0.8.2",
+    "tin-args": "^0.1.4"
+  }
+}
