@@ -1,6 +1,6 @@
 {
   "name": "@jeffy-g/unzip",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Streaming ZIP extraction helper and CLI powered by fflate.",
   "bin": {
     "ffunzip": "./unzip.js"
@@ -42,6 +42,6 @@
   "dependencies": {
     "colors.ts": "^1.0.20",
     "fflate": "^0.8.2",
-    "tin-args": "^0.1.4"
+    "tin-args": "^0.1.5"
   }
 }

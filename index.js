@@ -204,7 +204,7 @@ const unzipWithCallback = (fileName, destDir, cb) => {
     }
   });
 };
-unzipWithCallback.version = "v1.2.1";
+unzipWithCallback.version = "v1.2.2";
 unzipWithCallback.stream = unzipWithCallback;
 unzipWithCallback.memory = unzipMemoryWithCallback;
 unzipWithCallback.legacy = unzipMemoryWithCallback;

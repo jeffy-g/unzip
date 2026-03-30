@@ -6,6 +6,7 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 */
 import * as ff from "fflate";
+import "colors.ts";
 declare global {
   type UnzipFileFilter = ff.UnzipFileFilter;
   type UnzipFileInfo = ff.UnzipFileInfo;
@@ -40,15 +41,27 @@ declare global {
     /**
      * use progress?
      */
-    progress?: true;
+    p?: true;
     /**
      * use progress?
      */
-    p?: true;
+    progress?: true;
+    /**
+     * unzip mode. default is "stream"
+     */
+    m?: TUnzipMode;
     /**
      * unzip mode. default is "stream"
      */
     mode?: TUnzipMode;
+    /**
+     * print help
+     */
+    h?: true;
+    /**
+     * print help
+     */
+    help?: true;
   };
 }
 /**
