@@ -178,28 +178,24 @@ const pcb = () => {
  * @returns {TProgressLight}
  */
 const create = (fps = 30, messageEmitter) => {
-  const frameName = "dots";
-  const spinner = {
-    name: frameName,
-    frames: [
-      "⠋",
-      "⠙",
-      "⠹",
-      "⠸",
-      "⠼",
-      "⠴",
-      "⠦",
-      "⠧",
-      "⠇",
-      "⠏",
-    ]
-  };
+  const frames = [
+    "⠋",
+    "⠙",
+    "⠹",
+    "⠸",
+    "⠼",
+    "⠴",
+    "⠦",
+    "⠧",
+    "⠇",
+    "⠏",
+  ];
   !messageEmitter && (messageEmitter = pcb);
-  /** @type {TProgressLight | undefined} */
+  /** @type {TProgressLight} */
   const progress = createProgressObject(
-    spinner.frames, {
-      fmt: "{tick} - {frameName} - {msg}",
-      payload: { frameName: spinner.name },
+    frames, {
+      fmt: "{tick} - {msg}",
+      payload: {},
     },
     messageEmitter,
   );

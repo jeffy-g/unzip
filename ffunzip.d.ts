@@ -17,7 +17,7 @@ declare global {
   type TUnzipEntryState = "ignore" | "pending" | "write" | "info";
   type TUnzipEntryType = "File" | "Folder";
   type TUnzipMode = "stream" | "memory";
-  type TUnzipHandler = (fileName: string, destDir: string, cb: TUnzipCallback) => void;
+  type TUnzipHandler = (fileName: string, destDir: string, cb: TUnzipCallback) => Promise<string>;
   type TSimpleZipEntry = {
     state: TUnzipEntryState;
     type: TUnzipEntryType;
@@ -62,6 +62,7 @@ declare global {
      * print help
      */
     help?: true;
+    extractToZipNameDir?: true;
   };
 }
 /**
@@ -69,7 +70,7 @@ declare global {
  * @param {string} destDir output directory path
  * @param {TUnzipCallback} cb
  */
-declare function unzipWithCallback(fileName: string, destDir: string, cb: TUnzipCallback): void;
+declare function unzipWithCallback(fileName: string, destDir: string, cb: TUnzipCallback): Promise<string>;
 declare namespace unzipWithCallback {
   export const version: string;
   export const stream: TUnzipHandler;

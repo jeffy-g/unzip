@@ -11,9 +11,74 @@
 /// <reference path="./ffunzip.d.ts"/>
 const fs = require("fs");
 const path = require("path");
+require("colors.ts");
 const DEFAULT_READ_SIZE = 64 * 1024;
 const DIRECTORY_ENTRY_RE = /[\\/]$/;
 const EMPTY_UINT8_ARRAY = new Uint8Array(0);
+/** @type {function(string): string} */
+const section = (title) => /** @type {any} */(title.bold).underline;
+/** @type {function(string,string,string=): string} */
+const optionLine = (flag, desc, note = "") => {
+  return `  ${flag.padEnd(26).cyan}${desc.white}${note ? ` ${note.gray(14)}` : ""}`;
+};
+/** @type {function(string,string): string} */
+const exampleLine = (cmd, desc) => {
+  return `  ${cmd.green}${desc ? `  ${desc.gray(14)}` : ""}`;
+};
+const printHelp = () => {
+  const pkg = require("./package.json");
+  const cliName = Object.keys(pkg.bin)[0];
+  const divider = "-".repeat(72).hex("444444");
+  console.log(
+    [
+      "",
+      divider,
+      `${cliName.magenta.bold} ${`v${pkg.version}`.gray(14)}`,
+      `${pkg.description.hex("7cc5ff")}`,
+      divider,
+      "",
+      section("Usage"),
+      `  ${cliName.magenta.bold} ${"[-v] [-p|-progress] [-d <dir>] [-m|-mode <stream|memory>]".cyan} ${"<zip-file> [more.zip ...]".white.bold}`,
+      "",
+      section("Options"),
+      optionLine("-d <dir>", "extract into this directory", "(default: ./output)"),
+      optionLine("-v", "print verbose entry logs"),
+      optionLine("-p, -progress", "show single-line progress", "(implies -v)"),
+      optionLine("-m, -mode <name>", "choose unzip mode", "(stream default / memory legacy)"),
+      optionLine("-h, -help", "show this help"),
+      "",
+      section("Examples"),
+      exampleLine(`${cliName} archive.zip`, "extract with streaming mode"),
+      exampleLine(`${cliName} -d ./output bundle.zip`, "extract into a custom directory"),
+      exampleLine(`${cliName} -p -mode memory huge.zip`, "legacy memory mode with progress"),
+      "",
+      section("Modes"),
+      `  ${"stream".cyan.bold} ${"keeps memory usage lower for large ZIP files".gray(14)}`,
+      `  ${"memory".yellow} ${"uses the previous all-at-once extraction path".gray(14)}`,
+      ""
+    ].join("\n")
+  );
+};
+const log = console.log.bind(console, "[unzip]:".magenta);
+/** @type {(name: string) => void} */
+const logUnzipDone = zipNamne => log(`${zipNamne.cyan} unzip done`);
+/**
+ * @param {unknown} error
+ * @returns {string}
+ */
+const getErrorMessage = (error) => {
+  if (error instanceof Error) {
+    return error.message;
+  }
+  return String(error);
+};
+/**
+ * @param {string} zipName
+ * @param {unknown} error
+ */
+const logUnzipError = (zipName, error) => {
+  log(`${zipName.red} unzip failed${`: ${getErrorMessage(error)}`.yellow}`);
+};
 /**
  * @returns {{ mkdirs: (parent: string) => void; clear: () => void; }}
  */
@@ -177,5 +242,9 @@ module.exports = {
   createDirectoryCache,
   resolveOutputPath,
   createEntryInfo,
-  createEntryWriter
+  createEntryWriter,
+  log,
+  logUnzipDone,
+  logUnzipError,
+  printHelp
 };
